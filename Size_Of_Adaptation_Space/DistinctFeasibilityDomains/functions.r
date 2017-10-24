@@ -1,16 +1,3 @@
-MyToBit <- function(x, dig) {
-  i <- 0L
-  string <- numeric(dig)
-  while (x > 0) {
-    string[dig - i] <- x %% 2L
-    x <- x %/% 2L
-    i <- i + 1L
-  }
-  string
-}
-
-MyIntToBit <- cmpfun(MyToBit)
-
 Connectance <- function(A){
   return(sum(A)/length(A))
 }
@@ -94,45 +81,6 @@ Non_CommonNames <- function(X, Y){
   return(SubList)
 }
 #########################
-
-FindRandomOrigin <- function(X, CN, L){
-  esci = 0
-  while(esci == 0){
-    R = floor(runif(1, 90000, 150000))
-    Z <- matrix(MyIntToBit(R, L), length(CN$row), length(CN$col), dimnames = CN)
-    if (prod(rowSums(Z))*prod(colSums(Z)) == 0){
-    }else{
-    for(i in commonRow){
-      for(j in commonCol){
-        X[i, j] = Z[i, j]
-      }
-    }
-    esci = 1
-    }
-  }
-  return(X)
-}
-
-
-############################
-#################
-ChooseCombination <- function(X, a, b){
-  #### Give the list of common names. Choose a unique rows and b unique columns
-  x = list()
-  exit = 0
-  while(exit == 0){
-    x$row = sample(X$row, a)
-    x$col = sample(X$col, b)
-    x$row = unique(x$row)
-    x$col = unique(x$col)
-    if(length(x$row == a) && length(x$col == b)){
-      exit = 1
-    }
-  }
-  return(x)
-}
-
-
 
 TakeCpp <- function(X, rr, cc){
   X = cnt_cpp(X, rr, cc)
